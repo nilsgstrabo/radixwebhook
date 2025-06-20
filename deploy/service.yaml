@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: radix-webhook-service
+  namespace: radix-system
+spec:
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 9443
+  selector:
+    app: radix-webhook

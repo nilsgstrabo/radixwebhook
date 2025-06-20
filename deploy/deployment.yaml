@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radix-webhook-controller-manager
+  namespace: radix-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radix-webhook
+  template:
+    metadata:
+      labels:
+        app: radix-webhook
+    spec:
+      containers:
+      - args: []
+        command:
+        - /manager
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: nst656/webhook:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100M
+          requests:
+            cpu: 100m
+            memory: 100M
+        name: manager
+        ports:
+        - containerPort: 8080
+          name: metrics
+          protocol: TCP
+        - containerPort: 9443
+          name: webhook-server
+          protocol: TCP
+        - containerPort: 9440
+          name: healthz
+          protocol: TCP
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /healthz
+            port: healthz
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: healthz
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 65532
+          runAsNonRoot: true
+          runAsUser: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /certs
+          name: cert
+          readOnly: true
+      serviceAccountName: radix-webhook-admin
+      volumes:
+      - name: cert
+        secret:
+          defaultMode: 420
+          secretName: radix-webhook-server-cert

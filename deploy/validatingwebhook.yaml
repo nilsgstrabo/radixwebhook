@@ -1,0 +1,57 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: radix-admission-webhook
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: radix-webhook-service
+      namespace: radix-system
+      path: /radix/v1/radixapplication/validate
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: validate.radixapplication.radix.equinor.com
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - radix.equinor.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - radixapplications
+    scope: '*'
+  sideEffects: None
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: radix-webhook-service
+      namespace: radix-system
+      path: /radix/v1/radixregistration/validate
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: validate.radixregistration.radix.equinor.com
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - radix.equinor.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - radixregistrations
+    scope: '*'
+  sideEffects: None
+  timeoutSeconds: 10  
