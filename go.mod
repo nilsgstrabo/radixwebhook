@@ -3,7 +3,7 @@ module github.com/nilsgstrabo/radixwebhook
 go 1.24.3
 
 require (
-	github.com/equinor/radix-operator v1.83.0
+	github.com/equinor/radix-operator v1.83.1-0.20250624132856-7f938cc109fe
 	github.com/go-logr/logr v1.4.2
 	github.com/open-policy-agent/cert-controller v0.12.0
 	github.com/rs/zerolog v1.34.0

@@ -85,8 +85,14 @@ github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1m
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/equinor/radix-common v1.10.0 h1:y0MXQX/tT2iM13Q/PlGGtlsyBWaR4D7AxVhJthjPXf8=
 github.com/equinor/radix-common v1.10.0/go.mod h1:iivhnlJqawn8PuFmwu4Wx6CmNjk6xdB6JIMzsZKUFz8=
-github.com/equinor/radix-operator v1.83.0 h1:uBGe6s0u3kSCQZMKhORNeGW3EkuNR6vr5Uv1n942i3o=
-github.com/equinor/radix-operator v1.83.0/go.mod h1:OjfIu9y39QOtiq/FUWo16N6FCZXmZ+EDgfk5Qs5hZ0Y=
+github.com/equinor/radix-operator v1.83.1-0.20250624123838-135f61f220d8 h1:86IoE5+v2Lq1w6enRfVQCyQEM8bonCKSAhJ01e0hSUA=
+github.com/equinor/radix-operator v1.83.1-0.20250624123838-135f61f220d8/go.mod h1:OjfIu9y39QOtiq/FUWo16N6FCZXmZ+EDgfk5Qs5hZ0Y=
+github.com/equinor/radix-operator v1.83.1-0.20250624131129-e64210df2ba3 h1:b6bFKPlmgCP3Toj/z5fac2FxE3xKD9Bpg3p5BXlDUMk=
+github.com/equinor/radix-operator v1.83.1-0.20250624131129-e64210df2ba3/go.mod h1:OjfIu9y39QOtiq/FUWo16N6FCZXmZ+EDgfk5Qs5hZ0Y=
+github.com/equinor/radix-operator v1.83.1-0.20250624132618-fd40fd79a6f6 h1:c+wkzKFzUI6J0CinZhDAXC9Jw6HZ8kFLDYiHiMdJMyk=
+github.com/equinor/radix-operator v1.83.1-0.20250624132618-fd40fd79a6f6/go.mod h1:OjfIu9y39QOtiq/FUWo16N6FCZXmZ+EDgfk5Qs5hZ0Y=
+github.com/equinor/radix-operator v1.83.1-0.20250624132856-7f938cc109fe h1:gdiOr5iqdblQeoO9CVZ5fr9yVUWcaaSDWsHMbW9LSBc=
+github.com/equinor/radix-operator v1.83.1-0.20250624132856-7f938cc109fe/go.mod h1:OjfIu9y39QOtiq/FUWo16N6FCZXmZ+EDgfk5Qs5hZ0Y=
 github.com/evanphx/json-patch v5.9.0+incompatible h1:fBXyNpNMuTTDdquAq/uisOr2lShz4oaXpDTX2bLe7ls=
 github.com/evanphx/json-patch v5.9.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/evanphx/json-patch/v5 v5.9.11 h1:/8HVnzMq13/3x9TPvjG08wUGqBTmZBsCWzjTM0wiaDU=

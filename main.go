@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	radixv1 "github.com/equinor/radix-operator/pkg/apis/radix/v1"
+	radixv2 "github.com/equinor/radix-operator/pkg/apis/radix/v2"
 	"github.com/equinor/radix-operator/pkg/apis/radixvalidators"
 	pkgwebhook "github.com/nilsgstrabo/radixwebhook/pkg/webhook"
 	"github.com/open-policy-agent/cert-controller/pkg/rotator"
@@ -22,12 +23,17 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/conversion"
 )
 
 var webhooks = []rotator.WebhookInfo{
 	{
 		Name: "radix-admission-webhook",
 		Type: rotator.Validating,
+	},
+	{
+		Name: "radixapplications.radix.equinor.com",
+		Type: rotator.CRDConversion,
 	},
 }
 
@@ -45,7 +51,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 	utilruntime.Must(radixv1.AddToScheme(scheme))
-
+	utilruntime.Must(radixv2.AddToScheme(scheme))
 }
 
 func main() {
@@ -144,6 +150,7 @@ func setupWebhook(mgr manager.Manager, setupFinished chan struct{}) {
 	raValidation := func(obj *radixv1.RadixApplication) ([]string, error) {
 		return nil, radixvalidators.IsRadixApplicationValid(obj)
 	}
+
 	hookServer.Register("/radix/v1/radixapplication/validate", admission.WithCustomValidator(scheme, &radixv1.RadixApplication{}, &pkgwebhook.AdmissionValidator[*radixv1.RadixApplication]{
 		Logger:           mgr.GetLogger(),
 		CreateValidation: raValidation,
@@ -159,6 +166,8 @@ func setupWebhook(mgr manager.Manager, setupFinished chan struct{}) {
 		CreateValidation: rrValidation,
 		UpdateValidation: rrValidation,
 	}))
+
+	hookServer.Register("/convert", conversion.NewWebhookHandler(mgr.GetScheme()))
 
 }
 
